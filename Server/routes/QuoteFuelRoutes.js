@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const {addQuoteToHistory,getAllQuoteHistory, getSingleQuoteHistory} = require('../controllers/QuoteHistoryController');
+const {
+  addQuoteToHistory,
+  getAllQuoteHistory,
+  getSingleQuoteHistory,
+} = require("../controllers/QuoteFuelController");
 
 router.route("/").post(addQuoteToHistory);
 
