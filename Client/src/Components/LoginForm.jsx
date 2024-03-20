@@ -1,6 +1,10 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import image from "./Assets/images/fuel-pilot-background.png"
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
+import Profile from "./Profile";
+
 const LoginForm = () => {
   return (
     <section class="vh-100"
