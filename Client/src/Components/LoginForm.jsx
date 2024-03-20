@@ -53,6 +53,9 @@ const LoginForm = () => {
                   >
                     Login
                   </button>
+                  <LoginButton />
+                  <LogoutButton />
+                  <Profile />
                 </div>
                 <div>
                   <p class="mb-0">
