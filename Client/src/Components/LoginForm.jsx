@@ -34,7 +34,7 @@ const LoginForm = () => {
                   </div>
                   <div class="form-outline form-white mb-4">
                     <input
-                      type="password"
+                      type="pass"
                       id="typePasswordX"
                       class="form-control form-control-lg"
                     />
