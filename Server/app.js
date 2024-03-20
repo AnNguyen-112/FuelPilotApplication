@@ -24,6 +24,8 @@ app.use(bodyParser.json());
 const authRouter = require('./routes/AuthRoutes');
 const QuotePricingRouter = require('./routes/QuotePricingRoutes');
 const QuoteFuelRouter = require('./routes/QuoteFuelRoutes');
+const profileManagement = require('./routes/UserRoutes')
+
 
 // Middleware
 const notFoundMiddleware = require('./middleware/NotFound');
@@ -33,6 +35,7 @@ const notFoundMiddleware = require('./middleware/NotFound');
 // app.use('/fuelquote/pricing', QuotePricingRouter); 
 //fuel Quote module (include adding quote, get all history quote, get single history quote)
 app.use('/fuelquote/quoteform', QuoteFuelRouter);
+app.use('/userProfile', profileManagement);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
