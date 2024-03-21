@@ -2,16 +2,22 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 // var csurf = require('csurf')
 
 const dotenv = require('dotenv').config();
 
+
 const app = express();
 
 //config
-var corsOptions = require("./middleware/CustomCor");
+var corsOptions = require("./util/CustomCor");
+const SwaggerOptions = require("./util/SwaggerOption");
+
 
 app.use(cors(corsOptions));
+const specs = swaggerJsdoc(SwaggerOptions);
 
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,6 +25,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Parse application/json
 app.use(bodyParser.json());
 
+app.use(
+  "/",
+  swaggerUi.serve,
+  swaggerUi.setup(specs)
+);
 
 // Routers
 const authRouter = require('./routes/AuthRoutes');
