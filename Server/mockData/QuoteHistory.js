@@ -62,6 +62,30 @@ const quoteHistoryData = [
     "deliveryDate": "2024-02-23",
     "suggestedPricePerGallon": 50,
     "totalAmountDue": 5000
+  },
+  {
+    "id": 9,
+    "gallonsRequested": 100,
+    "deliveryAddress": "888 Elm St, City, State, Zipcode",
+    "deliveryDate": "2024-02-23",
+    "suggestedPricePerGallon": 50,
+    "totalAmountDue": 5000
+  },
+  {
+    "id": 10,
+    "gallonsRequested": 100,
+    "deliveryAddress": "888 Elm St, City, State, Zipcode",
+    "deliveryDate": "2024-02-23",
+    "suggestedPricePerGallon": 50,
+    "totalAmountDue": 5000
+  },
+  {
+    "id": 11,
+    "gallonsRequested": 100,
+    "deliveryAddress": "888 Elm St, City, State, Zipcode",
+    "deliveryDate": "2024-02-23",
+    "suggestedPricePerGallon": 50,
+    "totalAmountDue": 5000
   }
 ];
   module.exports = {quoteHistoryData};

@@ -13,7 +13,27 @@ const app = express();
 
 //config
 var corsOptions = require("./util/CustomCor");
-const SwaggerOptions = require("./util/SwaggerOption");
+// const SwaggerOptions = require("./util/SwaggerOption");
+
+
+const SwaggerOptions = {
+  definition: {
+    openapi: "3.1.0",
+    info: {
+      title: "Fuel Pilot API with Swagger",
+      version: "0.1.0",
+      description:
+        "This is a simple CRUD API application made with Express and documented with Swagger",
+    },
+    servers: [
+      {
+        url: "http://localhost:3500",
+      },
+    ],
+  },
+apis: ["./routes/*.js"],
+
+};
 
 
 app.use(cors(corsOptions));
@@ -25,11 +45,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Parse application/json
 app.use(bodyParser.json());
 
+//direct to Swagger
+app.get("/", (req, res) => {
+  res.send(' <h1>Welcome to Fuel Pilot API</h1><p>Go to <a href="/app-docs">App document</a> for more details</p>');
+});
+
+//swagger for testing api endpoint
 app.use(
-  "/",
+  "/app-docs",
   swaggerUi.serve,
-  swaggerUi.setup(specs)
+  swaggerUi.setup(specs,{ explorer: true })
 );
+
+
 
 // Routers
 const authRouter = require('./routes/AuthRoutes');
@@ -43,9 +71,9 @@ const notFoundMiddleware = require('./middleware/NotFound');
 
 // API
 // class prepare for next assignment only
-// app.use('/fuelquote/pricing', QuotePricingRouter); 
+app.use('/pricing', QuotePricingRouter); 
 //fuel Quote module (include adding quote, get all history quote, get single history quote)
-app.use('/fuelquote/quoteform', QuoteFuelRouter);
+app.use('/quoteform', QuoteFuelRouter);
 app.use('/userProfile', profileManagement);
 
 // Error handling middleware
