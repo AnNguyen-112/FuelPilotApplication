@@ -13,10 +13,11 @@ const profileHistory = JSON.parse(userData);
 //Getting user profile from the profile form.
 const getUserProfile = async (req, res) => {
   const newProfile = req.body;
-  // console.log(newProfile);
+
   const userProfile = { ...newProfile, updateStatus: "Success" };
-  //Send back the updated profile
-  res.status(200).json(userProfile);
+  // console.log(userProfile);
+  //Send back the update profile
+  res.status(StatusCodes.OK).json(userProfile);
   //Sending profile to history file
   // Load JavaScript data from file
   if (userProfile) {
@@ -29,7 +30,7 @@ const getUserProfile = async (req, res) => {
       zipCode: userProfile.zipCode,
     };
     profileHistory.userProfiles.push(updatedProfile);
-    console.log(profileHistory);
+    // console.log(profileHistory);
     //Write it to the JSON file
     fs.writeFileSync("./mockData/Users.json", JSON.stringify(profileHistory));
   }
