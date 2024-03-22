@@ -37,10 +37,10 @@ const getUserProfile = async (req, res) => {
 };
 
 //Update user profile
-const updateUserProfile = async (req, res) => {
-  console.log("Working");
-};
+// const updateUserProfile = async (req, res) => {
+//   console.log("Working");
+// };
 module.exports = {
   getUserProfile,
-  updateUserProfile,
+  // updateUserProfile,
 };

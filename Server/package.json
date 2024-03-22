@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/",
+    "coverage": "nyc --reporter=lcov --reporter=text npm run test",
     "start": "nodemon app.js",
     "start-server": "node app.js"
   },
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^10.3.0"
+    "mocha": "^10.3.0",
+    "nyc": "^15.1.0"
   }
 }
