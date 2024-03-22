@@ -11,6 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Auth0Provider
+    
       domain="dev-cnngykvzckevgh1b.us.auth0.com"
       clientId="Gs6D0LvJJPR4wdBBPSDCZVWtc1RWvsZy"
       authorizationParams={{
