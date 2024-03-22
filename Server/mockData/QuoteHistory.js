@@ -62,6 +62,126 @@ const quoteHistoryData = [
     "deliveryDate": "2024-02-23",
     "suggestedPricePerGallon": 50,
     "totalAmountDue": 5000
+  },
+  {
+    "id": 9,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 10,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 11,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 12,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 13,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 14,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 15,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 16,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 17,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 18,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 19,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 20,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 21,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 22,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
+  },
+  {
+    "id": 23,
+    "gallonsRequested": 100,
+    "deliveryAddress": "1234 Test St, City, State, Zip",
+    "deliveryDate": "2024-01-01",
+    "suggestedPricePerGallon": 1.5,
+    "totalAmountDue": 150
   }
 ];
   module.exports = {quoteHistoryData};

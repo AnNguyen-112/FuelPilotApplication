@@ -67,7 +67,7 @@ const getSingleQuoteHistory = async (req, res) => {
   const id = parseInt(req.params.id);
 
   //mocking id
-  if (id === null || id === undefined) {
+  if (id === null || id === undefined || isNaN(id)) {
     res.status(StatusCodes.NOT_FOUND).send("ID is null or undefined");
   }
 

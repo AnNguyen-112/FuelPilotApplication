@@ -15,8 +15,8 @@ const getUserProfile = async (req, res) => {
   const newProfile = req.body;
   // console.log(newProfile);
   const userProfile = { ...newProfile, updateStatus: "Success" };
-  //Send back the update profile
-  res.status(StatusCodes.OK).json(userProfile);
+  //Send back the updated profile
+  res.status(200).json(userProfile);
   //Sending profile to history file
   // Load JavaScript data from file
   if (userProfile) {
@@ -36,10 +36,10 @@ const getUserProfile = async (req, res) => {
 };
 
 //Update user profile
-const updateUserProfile = async (req, res) => {
-  console.log("Working");
-};
+// const updateUserProfile = async (req, res) => {
+//   console.log("Working");
+// };
 module.exports = {
   getUserProfile,
-  updateUserProfile,
+  // updateUserProfile,
 };
