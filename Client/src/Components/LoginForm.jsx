@@ -22,11 +22,11 @@ const LoginForm = () => {
                 style={{ "border-radius": "1rem;" }}
               >
                 <div class="mb-md-5 mt-md-4 pb-5">
-                  <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                  <h2 class="fw-bold mb-2 text-uppercase">Welcome</h2>
                   <p class="text-white-50 mb-5">
-                    Please enter your login and password!
+                    Please click below to get started!
                   </p>
-                  <div class="form-outline form-white mb-4">
+                  {/* <div class="form-outline form-white mb-4">
                     <input
                       type="email"
                       id="typeEmailX"
@@ -56,18 +56,18 @@ const LoginForm = () => {
                     type="submit"
                   >
                     Login
-                  </button>
+                  </button> */}
                   <LoginButton />
-                  <LogoutButton />
                   <Profile />
+                  <LogoutButton />
                 </div>
                 <div>
-                  <p class="mb-0">
+                  {/*<p class="mb-0">
                     Don't have an account?{" "}
                     <a href="#!" class="text-white-50 fw-bold">
                       Sign Up
                     </a>
-                  </p>
+                </p>*/}
                 </div>
               </div>
             </div>
