@@ -4,9 +4,63 @@ import image from "./Assets/images/background_2.png"
 
 import styled from "styled-components";
 const QuoteForm = () => {
-  const [gallonRequest, setGallonRequest] = useState(5);
-  const [suggestPricePerGallon, setSuggestPricePerGallon] = useState(null);
-  const [totalAmountDue, setTotalAmount] = useState(null);
+  const [gallonRequested, setGallonRequested] = useState(0);
+  const [suggestedPricePerGallon, setSuggestedPricePerGallon] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+
+  //for date
+  const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+  const [deliveryDate, setDeliveryDate] = useState(yesterday);
+
+
+ 
+    const fetchPriceAndTotal = async() => {
+      const response = await fetch("http://localhost:3500/pricing");
+      if (!response.ok){
+        throw new Error('Failed to fetch Data');
+      };
+      const data = await response.json();
+      console.log(data);
+      // setSuggestPricePerGallon(data.)
+    }
+
+    const handleSubmitQuoteForm = async(e) => {
+      e.preventDefault();
+      
+      // future assigment quote form module after receive a price  
+      
+
+    }
+
+    const handleSubmitPrice = async(e) => {
+        
+        e.preventDefault();
+        console.log(deliveryDate);
+        const response = await fetch("http://localhost:3500/pricing",{
+          method:'POST',
+          headers:{
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            gallonsRequested: gallonRequested,
+            deliveryDate: deliveryDate,
+          }),
+        });
+        if (!response.ok){
+          throw new Error('Failed to fetch Data');
+        };
+        const data = await response.json();
+        console.log(data.Pricing.suggestedPricePerGallon);
+        setSuggestedPricePerGallon(data.Pricing.suggestedPricePerGallon);
+        setTotal(data.Pricing.total);
+      
+    }
+
+
+  
+
   return (
     <Wrapper className="d-flex justify-content-center align-items-center"
     style={{
@@ -14,7 +68,7 @@ const QuoteForm = () => {
         backgroundSize: 'contain',
         backgroundPosition: 'center',
     }}>
-    <div className="container border p-2 round-23 shadow-lg">
+    <form className="container border p-2 round-23 shadow-lg bg-light">
       <div className="m-2">
         <label
           htmlFor="gallonRequest"
@@ -29,6 +83,7 @@ const QuoteForm = () => {
           className="form-control col-sm-12"
           id="gallonRequestFormControlInput"
           required
+          onChange={(e) => setGallonRequested(e.target.value)}
         ></input>
       </div>
       <div className="m-2">
@@ -57,6 +112,7 @@ const QuoteForm = () => {
           type="date"
           className="form-control"
           id="deliveryDateFormControlInput"
+          required
         ></input>
       </div>
       <div className="m-2">
@@ -71,7 +127,7 @@ const QuoteForm = () => {
           className="form-control"
           id="suggestPricePerGallonsFormControlInput fw-bold"
           placeholder=""
-          value={suggestPricePerGallon}
+          value={suggestedPricePerGallon}
           disabled
         ></input>
       </div>
@@ -86,19 +142,29 @@ const QuoteForm = () => {
           type="number"
           className="form-control"
           id="totalAmountDueFormControlInput"
-          value={totalAmountDue}
+          value={total}
           disabled
         ></input>
       </div>
-      <div className="p-2">
-        <button className="col-12 btn btn-secondary rounded-0">Submit</button>
+      <div className="p-2 d-flex justify-content-between">
+        <button className="col-6 btn btn-dark rounded-0 me-1" type="submit" onClick={handleSubmitQuoteForm}>Submit</button>
+        
+        <button 
+        className="col-6  btn btn-dark rounded-0 ms-1" 
+        type="submit"  
+        onClick={handleSubmitPrice}
+        disabled={gallonRequested <= 0 || deliveryDate >= yesterday}
+        >
+          Checking price</button>
       </div>
-    </div>
+    </form>
   </Wrapper>
   )
 }
 const Wrapper = styled.div`
   height: 80vh;
+
+  
 `;
 
 export default QuoteForm

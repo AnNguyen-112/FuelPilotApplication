@@ -2,13 +2,30 @@ const path = require("path");
 
 const { StatusCodes } = require("http-status-codes");
 
-const getPricing = async (req, res) => {
-  const Pricing = {
-    suggestedPricePerGallon: 50,
-    total: 100,
-  };
+const postPricingFromQuote = async (req, res) => {
+  const unfinishQuote = req.body;
+  // get the address from user and calculate the pricing and total amount
 
-  res.status(StatusCodes.OK).json({Pricing});
+  const requiredDate = new Date(unfinishQuote.deliveryDate);
+
+  //validation for post input
+ console.log(new Date(unfinishQuote.deliveryDate))
+  if (
+    typeof parseInt(unfinishQuote.gallonsRequested) !== "number" ||
+    isNaN(requiredDate.getTime())  
+  ) 
+  {
+    res.status(StatusCodes.BAD_REQUEST).json({ message: "Wrong Input" });
+  } else {
+    // mock data
+    const Pricing = {
+      suggestedPricePerGallon: 50,
+      total: 100,
+    };
+
+    //return the pricing, can change to a full quote if want
+    res.status(StatusCodes.OK).json({ Pricing });
+  }
 };
 
-module.exports = { getPricing };
+module.exports = { postPricingFromQuote };
