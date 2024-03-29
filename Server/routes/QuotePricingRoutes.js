@@ -16,7 +16,7 @@ const router = express.Router();
  *       properties:
  *         gallonsRequested:
  *           type: integer
- *           description: The gallon user wants to have
+ *           description: The quote user wants to know price and total price
  *         deliveryAddress:
  *           type: string
  *           description: User Delivery Address
@@ -32,12 +32,18 @@ const router = express.Router();
  *   name: Pricing
  *   description: The Pricing managing API
  * /pricing:
- *   get:
- *     summary: Get needed pricing
+ *   post:
+ *     summary: Submit pricing from a quote
  *     tags: [Pricing]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/pricing'
  *     responses:
- *       200:
- *         description: The list of quote is return.
+ *       201:
+ *         description: Pricing successfully created and submitted.
  *         content:
  *           application/json:
  *             schema:
@@ -45,11 +51,11 @@ const router = express.Router();
  *       500:
  *         description: Some server error
  *       404:
- *         description: pricing not found
+ *         description: Pricing not found
  */
 
-const { getPricing } = require("../controllers/QuotePricingController");
+const { postPricingFromQuote } = require("../controllers/QuotePricingController");
 
-router.route("/").get(getPricing);
+router.route("/").post(postPricingFromQuote);
 
 module.exports = router;

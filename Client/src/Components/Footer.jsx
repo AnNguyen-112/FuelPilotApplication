@@ -4,7 +4,7 @@ import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
     <Wrapper>
-    <div className="footer">
+    <div className="footer bg-dark">
       <div className="fp_footer section_padding">
         <div className="fp_footer-links">
           <div className="fp_footer-links-div">
