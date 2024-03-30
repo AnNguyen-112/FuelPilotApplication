@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 const NavBar = () => {
   return (
     <Wrapper>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
       <NavLink className="nav-link text-light" aria-current="page" to ="/">
                 <h3>Fuel Pilot</h3>
