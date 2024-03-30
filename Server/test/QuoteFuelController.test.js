@@ -11,9 +11,9 @@ chai.use(chaiHttp);
 describe ("Get /fuelquote/quoteform/getquotehistory", ()=>{
     it ("should return all quote history", (done) => {
         chai.request(server)
-        .get("/fuelquote/quoteform/getquotehistory")
-        .end((err,response) => {
-            response.should.have.status(200);
+        .get("/quoteform/getquotehistory")
+        .end((err,res) => {
+            res.should.have.status(200);
         done();
         })
     })
@@ -34,10 +34,9 @@ describe('Quote History API', () => {
   
         // Make a POST request to your endpoint
         chai.request(server)
-          .post('/fuelquote/quoteform/') // Ensure this matches the route in your app
+          .post('/quoteform')
           .send(quote)
           .end((err, res) => {
-            // Start your assertions
             res.should.have.status(201);
             res.body.should.be.a('object');
             res.body.should.have.property('message').eql('Quote added successfully');
@@ -46,8 +45,6 @@ describe('Quote History API', () => {
             res.body.quote.should.have.property('deliveryDate');
             res.body.quote.should.have.property('suggestedPricePerGallon');
             res.body.quote.should.have.property('totalAmountDue');
-            // Ensure that the response contains the properties you expect
-            // Optionally, check for the values if needed
             done();
           });
       });
@@ -55,13 +52,13 @@ describe('Quote History API', () => {
   });
 
 //Testing getting a single quote form
-describe ("Get /fuelquote/quoteform/getquotehistory/:id", ()=>{
+describe ("Get quoteform/getquotehistory/:id", ()=>{
     it ("should return a single quote", (done) => {
         const id = 1;
         chai.request(server)
-        .get(`/fuelquote/quoteform/getquotehistory/${id}`)
-        .end((err,response) => {
-            response.should.have.status(200);
+        .get(`/quoteform/getquotehistory/${id}`)
+        .end((err,res) => {
+            res.should.have.status(200);
         done();
         })
     })
@@ -70,9 +67,9 @@ describe ("Get /fuelquote/quoteform/getquotehistory/:id", ()=>{
 describe ("Get /fuelquote/quoteform/getquotehistory/:id", ()=>{
     it ("should return an exception error", (done) => {
         chai.request(server)
-        .get('/fuelquote/quoteform/getquotehistory/invalidId')
-        .end((err,response) => {
-            response.should.have.status(404);
+        .get('/quoteform/getquotehistory/invalidId')
+        .end((err,res) => {
+            res.should.have.status(404);
         done();
         })
     })
@@ -82,9 +79,9 @@ describe ("Get /fuelquote/quoteform/getquotehistory/:id", ()=>{
     it ("should return an exception error", (done) => {
         const invalidID = 1000
         chai.request(server)
-        .get(`'/fuelquote/quoteform/getquotehistory/${invalidID}`)
-        .end((err,response) => {
-            response.should.have.status(400);
+        .get(`/fuelquote/quoteform/getquotehistory/${invalidID}`)
+        .end((err,res) => {
+            res.should.have.status(404);
         done();
         })
     })
