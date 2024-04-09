@@ -39,10 +39,16 @@ const addQuoteToHistory = async (req, res) => {
     totalAmountDue: req.body.totalAmountDue,
   };
   
+  if (!newQuote)
+  {
+    res
+    .status(StatusCodes.NOT_FOUND)
+    .json({ message: "No Quote found" });
+  }
 
   // Add the new quote object to the JavaScript data
   quoteHistoryData.push(newQuote);
-  console.log(quoteHistoryData);
+ 
 
   // Update the JavaScript data file
   const updatedFileContent = `const quoteHistoryData = ${JSON.stringify(
@@ -55,7 +61,7 @@ const addQuoteToHistory = async (req, res) => {
 
   // Send a response indicating success
   res
-    .status(201)
+    .status(StatusCodes.CREATED)
     .json({ message: "Quote added successfully", quote: newQuote });
 };
 
@@ -67,7 +73,7 @@ const getSingleQuoteHistory = async (req, res) => {
   const id = parseInt(req.params.id);
 
   //mocking id
-  if (id === null || id === undefined) {
+  if (id === null || id === undefined || isNaN(id)) {
     res.status(StatusCodes.NOT_FOUND).send("ID is null or undefined");
   }
 

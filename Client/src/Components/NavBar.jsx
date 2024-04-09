@@ -2,11 +2,14 @@ import React from 'react'
 import styled from "styled-components";
 import { FaSignInAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const NavBar = () => {
+  const { user, isAuthenticated } = useAuth0();
+
   return (
     <Wrapper>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
       <NavLink className="nav-link text-light" aria-current="page" to ="/">
                 <h3>Fuel Pilot</h3>
@@ -44,16 +47,9 @@ const NavBar = () => {
                 Profile
               </NavLink>
             </li>
-          </ul>
-
-          <div className="nav-item mb-2 mb-lg-0 p-2">
-            <NavLink to="/register" className="btn btn-outline-light">
-                <FaSignInAlt /> Register
-            </NavLink>
-          </div>
-
-          <div>
-            <form className="mb-lg-0 col align-self-center">
+            <li>
+            <div>
+            <form className="mb-lg-0 col align-self-center ps-5">
               <input
                 className="form-control form-control-lg "
                 type="search"
@@ -62,6 +58,20 @@ const NavBar = () => {
               />
             </form>
           </div>
+            </li>
+          </ul>
+
+          
+          {isAuthenticated && (
+    <div className="nav-item mb-2 mb-lg-0 p-2 d-flex align-items-center">
+      {user?.picture && <img src={user.picture} alt={user?.name} 
+                style={{ width: '30px', height: 'auto' }}
+                />}
+        <p className="m-0 ps-1 text-light">Welcome back, {user?.name}</p>
+    </div>
+)}
+
+          
         </div>
       </div>
     </nav>

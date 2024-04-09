@@ -13,8 +13,9 @@ const profileHistory = JSON.parse(userData);
 //Getting user profile from the profile form.
 const getUserProfile = async (req, res) => {
   const newProfile = req.body;
-  // console.log(newProfile);
+
   const userProfile = { ...newProfile, updateStatus: "Success" };
+  // console.log(userProfile);
   //Send back the update profile
   res.status(StatusCodes.OK).json(userProfile);
   //Sending profile to history file
@@ -29,17 +30,17 @@ const getUserProfile = async (req, res) => {
       zipCode: userProfile.zipCode,
     };
     profileHistory.userProfiles.push(updatedProfile);
-    console.log(profileHistory);
+    // console.log(profileHistory);
     //Write it to the JSON file
     fs.writeFileSync("./mockData/Users.json", JSON.stringify(profileHistory));
   }
 };
 
 //Update user profile
-const updateUserProfile = async (req, res) => {
-  console.log("Working");
-};
+// const updateUserProfile = async (req, res) => {
+//   console.log("Working");
+// };
 module.exports = {
   getUserProfile,
-  updateUserProfile,
+  // updateUserProfile,
 };
