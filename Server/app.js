@@ -4,9 +4,19 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-// var csurf = require('csurf')
+const csrf = require('csurf')
 
 const dotenv = require("dotenv").config();
+
+//database (MongoDb)
+const mongoose = require("mongoose");
+// const MongoDBStore = require("connect-mongodb-session")(session);
+const connectDB = require('./util/dbConn')
+
+connectDB()
+
+//csurf
+const csrfProtection = csrf();
 
 const app = express();
 
@@ -35,6 +45,7 @@ apis: ["./routes/*.js"],
 };
 
 app.use(cors(corsOptions));
+app.use(csrfProtection);
 const specs = swaggerJsdoc(SwaggerOptions);
 
 // Parse application/x-www-form-urlencoded
@@ -82,6 +93,13 @@ app.use((err, req, res, next) => {
 // Start the server
 const PORT = process.env.PORT || 3500;
 
-module.exports = app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+mongoose.connection.once('open', () => {
+  console.log('Connect to MongoDB');
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+})
+
+
+
