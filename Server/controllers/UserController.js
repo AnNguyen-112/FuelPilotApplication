@@ -3,7 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const path = require("path");
 const fs = require("fs");
 const mongoose = require("mongoose");
-const userProfileModel = require("../models/Profile");
+const userProfileModel = require("../models/UserProfile");
 /* TO DO LIST AFTER LOGIN MODULE IS COMPLETELY UPDATED
 1. Need to verify which users are editing their profile
 2. Change the profile of that user.

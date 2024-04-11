@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
@@ -12,9 +11,9 @@ const dotenv = require("dotenv").config();
 //database (MongoDb)
 const mongoose = require("mongoose");
 // const MongoDBStore = require("connect-mongodb-session")(session);
-const connectDB = require('./util/dbConn')
+// const connectDB = require('./util/dbConn')
 
-connectDB()
+// connectDB()
 
 //csurf
 const csrfProtection = csrf();
@@ -44,7 +43,6 @@ const SwaggerOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(csrfProtection);
 const specs = swaggerJsdoc(SwaggerOptions);
 
 // Parse application/x-www-form-urlencoded
@@ -103,13 +101,14 @@ const PORT = process.env.PORT || 3500;
 //   console.log(error)
 // })
 
-mongoose.connection.once('open', () => {
-  console.log('Connect to MongoDB');
+// mongoose.connection.once('open', () => {
+//   console.log('Connect to MongoDB');
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
-})
+// })
 
+app.use(csrfProtection);
 
 
