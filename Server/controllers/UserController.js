@@ -2,7 +2,8 @@ const express = require("express");
 const { StatusCodes } = require("http-status-codes");
 const path = require("path");
 const fs = require("fs");
-
+const mongoose = require("mongoose");
+const userProfileModel = require("../models/UserProfile");
 /* TO DO LIST AFTER LOGIN MODULE IS COMPLETELY UPDATED
 1. Need to verify which users are editing their profile
 2. Change the profile of that user.
@@ -17,7 +18,13 @@ const getUserProfile = async (req, res) => {
   const userProfile = { ...newProfile, updateStatus: "Success" };
   // console.log(userProfile);
   //Send back the update profile
+
   res.status(StatusCodes.OK).json(userProfile);
+  /* DATABASE
+    const newUserProfile = await userProfileModel.create(userProfile);
+    res.status(StatusCodes.OK).json(newUserProfile);
+   */
+
   //Sending profile to history file
   // Load JavaScript data from file
   if (userProfile) {

@@ -8,6 +8,7 @@ import ProfileManagement from "./Components/ProfileManagement";
 import NavBar from "./Components/NavBar";
 import QuoteForm from "./Components/QuoteForm";
 import Footer from "./Components/Footer";
+import { useAuth0 } from '@auth0/auth0-react';
 function App() {
   return (
     <div>
