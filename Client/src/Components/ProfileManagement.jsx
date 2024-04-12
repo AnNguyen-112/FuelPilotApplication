@@ -17,6 +17,7 @@ const ProfileManagement = () => {
   const userEmail = isAuthenticated && user?.email;
   const [profileUpdated, setProfileUpdated] = useState(false);
   const [profileData, setProfileData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const {
     register,
     handleSubmit,
@@ -27,32 +28,47 @@ const ProfileManagement = () => {
   useEffect(() => {
     if (isAuthenticated && user?.email) {
       const fetchData = async () => {
-        try
-        {
-           const response = await fetch(
-          `http://localhost:3500/userProfile?userEmail=${userEmail}`
-        );
-        if (!response.ok) {
-          throw new Error("Fail to fetch Data");
-        }
-        const data = await response.json();
-        if(data){
-          setProfileData(data);
-          setProfileUpdated(true);
-          reset(data);
-        }else{
+        try {
+          const response = await fetch(
+            `http://localhost:3500/userProfile?userEmail=${userEmail}`
+          );
+          if (!response.ok) {
+            throw new Error("Fail to fetch Data");
+          }
+          const data = await response.json();
+          if (data) {
+            setProfileData(data);
+            setProfileUpdated(true);
+            reset(data);
+            setIsLoading(false);
+          } else {
+            setProfileData(null);
+            setProfileUpdated(false);
+          }
+        } catch (error) {
           setProfileData(null);
           setProfileUpdated(false);
+          setIsLoading(false);
         }
-      }
-      catch(error){
-          setProfileData(null);
-          setProfileUpdated(false);
-      }
-        }
-       fetchData();
+      };
+      fetchData();
     }
-  },[user, isAuthenticated, reset]);
+  }, [user, isAuthenticated, reset]);
+  if (isLoading) {
+    return (
+      <section
+        //Centering items
+        className="vh-100 d-flex justify-content-center align-items-center"
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundSize: "contain",
+          backgroundPosition: "center",
+        }}
+      >
+        ;
+      </section>
+    );
+  }
   // const userEmail = isAuthenticated && user?.email;
   const onSubmit = (data) => {
     fetch("http://localhost:3500/userProfile", {

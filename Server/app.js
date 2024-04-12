@@ -109,4 +109,6 @@ mongoose.connect(process.env.MONGODB_URI)
 
 app.use(csrfProtection);
 
+module.exports = app;
+
 

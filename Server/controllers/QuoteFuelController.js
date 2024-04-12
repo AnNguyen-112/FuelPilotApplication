@@ -32,7 +32,7 @@ const addQuoteToHistory = async (req, res) => {
 
     await newQuoteForm.save();
 
-    // console.log(newQuoteForm);
+    console.log(newQuoteForm);
 
     const existingQuoteHistory = await QuoteHistory.findOne({
       "user.userId": user._id,
@@ -61,7 +61,7 @@ const addQuoteToHistory = async (req, res) => {
 
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: "Failed to add quote to history" });
+    res.status(404).json({ error: "Failed to add quote to history" });
   }
 
   // if (!newQuote)
