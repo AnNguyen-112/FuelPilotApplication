@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 
 
-const quoteHistorySchema = new mongoose.Schema({
+const quoteHistorySchema = new Schema({
     quoteFormList: [{type: Schema.ObjectId, ref: "QuoteForm"}],
     user: {
       email: {
