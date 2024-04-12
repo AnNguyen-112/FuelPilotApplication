@@ -21,16 +21,14 @@ const QuoteHistory = () => {
       const { user, isAuthenticated } = useAuth0();
 
       const userEmail = isAuthenticated && user?.email;
-      
 
-      //fetching data
+      
+        //fetching data
    
       useEffect(() => {
-        const fetchData = async () => {
-          
-            const response = await fetch(`http://localhost:3500/quoteform/getquotehistory?userEmail=${userEmail}`);
-            
-
+        const fetchData = async () => {    
+            console.log(userEmail); 
+            const response = await fetch(`http://localhost:3500/quoteform/getquotehistory?userEmail=${userEmail}`);            
             if (!response.ok)
             {
               throw new Error('Fail to fetch Data')
@@ -38,9 +36,18 @@ const QuoteHistory = () => {
               const data = await response.json();
               setFuelHistory(data);
             }
-        };       
-          fetchData();  
+        };  
+        if (userEmail) 
+        {
+          fetchData(); 
+        }    
+                    
+             
       }, [userEmail]);
+      
+      
+
+      
 
 
     return (    
