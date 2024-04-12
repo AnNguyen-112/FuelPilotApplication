@@ -4,8 +4,11 @@ import image from "./Assets/images/fuel-pilot-background.png"
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import Profile from "./Profile";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const LoginForm = () => {
+  const { user, isAuthenticated } = useAuth0();
+
   return (
     <section class="vh-100"
     style={{
@@ -23,9 +26,11 @@ const LoginForm = () => {
               >
                 <div class="mb-md-5 mt-md-4 pb-5">
                   <h2 class="fw-bold mb-2 text-uppercase">Welcome</h2>
+                  {!isAuthenticated && (
                   <p class="text-white-50 mb-5">
                     Please click below to get started!
                   </p>
+                  )}
                   {/* <div class="form-outline form-white mb-4">
                     <input
                       type="email"
