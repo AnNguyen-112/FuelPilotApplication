@@ -5,67 +5,97 @@ const { StatusCodes } = require("http-status-codes");
 
 const { quoteHistoryData } = require("../mockData/QuoteHistory");
 
+const User = require("../models/User");
+const QuoteForm = require("../models/QuoteForm");
+const QuoteHistory = require("../models/QuoteHistory");
+
 const addQuoteToHistory = async (req, res) => {
-  function loadJSData(filePath) {
-    return require(filePath);
+  const userEmail = req.body.userEmail;
+  const gallonsRequested = req.body.gallonRequested;
+  const deliveryAddress = req.body.deliveryAddress;
+  const deliveryDate = req.body.deliveryDate;
+  const suggestedPricePerGallon = req.body.suggestedPricePerGallon;
+  const totalAmountDue = req.body.totalAmountDue;
+
+  try {
+    const user = await User.findOne({ email: userEmail });
+
+    // // Create a new quote object with the provided request body and the new ID
+    const newQuoteForm = new QuoteForm({
+      gallonsRequested: gallonsRequested,
+      deliveryAddress: deliveryAddress,
+      deliveryDate: deliveryDate,
+      suggestedPricePerGallon: suggestedPricePerGallon,
+      totalAmountDue: totalAmountDue,
+      userId: user._id,
+    });
+
+    await newQuoteForm.save();
+
+    // console.log(newQuoteForm);
+
+    const existingQuoteHistory = await QuoteHistory.findOne({
+      "user._id": user._id,
+    });
+
+    if (!existingQuoteHistory) {
+      const newQuoteHistory = new QuoteHistory({
+        quoteFormList: [newQuoteForm],
+        user: {
+          email: userEmail,
+          _id: user._id,
+        },
+      });
+      await newQuoteHistory.save();
+    } else {
+      existingQuoteHistory.quoteFormList.push(newQuoteForm);
+      await existingQuoteHistory.save();
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Failed to add quote to history" });
   }
 
-  console.log(quoteHistoryData);
+  // if (!newQuote)
+  // {
+  //   res
+  //   .status(StatusCodes.NOT_FOUND)
+  //   .json({ message: "No Quote found" });
+  // }
 
-  function generateNewId(data) {
-    // Count the number of objects in the data array
-    const count = data.length;
-
-    // Increment the count by 1 to generate the new ID
-    const newId = count + 1;
-
-    return newId;
-  }
-
-  // Load JavaScript data from file
-  const filePath = path.join(__dirname, "..", "mockdata", "quoteHistory.js");
-  // const { quoteHistoryData: jsonData } = loadJSData(filePath);
-  // console.log(jsonData);
-
-  // Generate a new ID
-  const newId = generateNewId(quoteHistoryData);
-  // Create a new quote object with the provided request body and the new ID
-  const newQuote = {
-    id: newId,
-    gallonsRequested: req.body.gallonsRequested,
-    deliveryAddress: req.body.deliveryAddress,
-    deliveryDate: req.body.deliveryDate,
-    suggestedPricePerGallon: req.body.suggestedPricePerGallon,
-    totalAmountDue: req.body.totalAmountDue,
-  };
-  
-  if (!newQuote)
-  {
-    res
-    .status(StatusCodes.NOT_FOUND)
-    .json({ message: "No Quote found" });
-  }
-
-  // Add the new quote object to the JavaScript data
-  quoteHistoryData.push(newQuote);
- 
-
-  // Update the JavaScript data file
-  const updatedFileContent = `const quoteHistoryData = ${JSON.stringify(
-    quoteHistoryData,
-    null,
-    2
-  )};
-  module.exports = {quoteHistoryData};`;
-  fs.writeFileSync(filePath, updatedFileContent);
-
-  // Send a response indicating success
-  res
-    .status(StatusCodes.CREATED)
-    .json({ message: "Quote added successfully", quote: newQuote });
+  res.status(StatusCodes.CREATED).json({ message: "Quote added successfully" });
 };
 
 const getAllQuoteHistory = async (req, res) => {
+  const userEmail = req.query.userEmail;
+
+  // try {
+  //   const user = await User.findOne({email: userEmail});
+
+  //   if (!user)
+  //   {
+  //     res
+  //     .status(StatusCodes.NOT_FOUND)
+  //     .json({ message: "USER NOT FOUND" });
+
+  //   }
+
+  //   // const existingQuoteHistory = await QuoteHistory.findOne({ "user._id": user._id }).populate('quoteFormList');
+  //   // console.log(existingQuoteHistory);
+
+  //   //  if (!existingQuoteHistory) {
+
+  //   //   res
+  //   //   .status(StatusCodes.NOT_FOUND)
+  //   //   .json({ message: "USER HISTORY NOT FOUND" });
+  //   // }
+
+  //   console.log(quoteHistoryData);
+  //   res.status(StatusCodes.OK).json(quoteHistoryData);
+
+  // } catch (err) {
+  //   console.log(err);
+  // }
   res.status(StatusCodes.OK).json(quoteHistoryData);
 };
 
