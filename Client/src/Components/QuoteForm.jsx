@@ -135,6 +135,7 @@ const QuoteForm = () => {
           type="date"
           className="form-control"
           id="deliveryDateFormControlInput"
+          onChange={(e) => setDeliveryDate(e.target.value)}
           required
         ></input>
       </div>
@@ -170,13 +171,18 @@ const QuoteForm = () => {
         ></input>
       </div>
       <div className="p-2 d-flex justify-content-between">
-        <button className="col-6 btn btn-dark rounded-0 me-1" type="submit" onClick={handleSubmitQuoteForm}>Submit</button>
+        <button 
+        className="col-6 btn btn-dark rounded-0 me-1" 
+        type="submit" 
+        onClick={handleSubmitQuoteForm}
+        disabled = {total === 0 || suggestedPricePerGallon === 0}
+        >Submit</button>
         
         <button 
         className="col-6  btn btn-dark rounded-0 ms-1" 
         type="submit"  
         onClick={handleSubmitPrice}
-        disabled={gallonRequested <= 0 || deliveryDate >= yesterday}
+        disabled={gallonRequested <= 0 || Date.parse(deliveryDate) <= yesterday}
         >
           Checking price</button>
       </div>

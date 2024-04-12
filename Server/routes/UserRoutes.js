@@ -71,9 +71,9 @@ const router = express.Router();
 
 const {
   getUserProfile,
-  updateUserProfile,
+  fetchUserProfile,
 } = require("../controllers/UserController");
-
+router.route("/").get(fetchUserProfile);
 router.route("/").post(getUserProfile);
 
 module.exports = router;

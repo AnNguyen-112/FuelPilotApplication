@@ -8,9 +8,8 @@ const Schema = mongoose.Schema
 //       city,
 //       state,
 //       zipCode,
-
-
 const userProfileSchema = new Schema({
+
   fullName: {
     type: String,
     required: true,
@@ -35,11 +34,11 @@ const userProfileSchema = new Schema({
     type: String,
     required: true,
   },
-  // userId: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "User",
-  //   required: true,
-  // }
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  }
 });
 
-module.exports = mongoose.model("userProfileModel", userProfileSchema);
+module.exports = mongoose.model("userProfileModels", userProfileSchema);

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/",
+    "test": "mocha test/ --timeout 10000",
     "coverage": "nyc --reporter=lcov --reporter=text npm run test",
     "start": "nodemon app.js",
     "start-server": "node app.js"

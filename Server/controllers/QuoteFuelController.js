@@ -61,7 +61,7 @@ const addQuoteToHistory = async (req, res) => {
 
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: "Failed to add quote to history" });
+    res.status(404).json({ error: "Failed to add quote to history" });
   }
 
   // if (!newQuote)
