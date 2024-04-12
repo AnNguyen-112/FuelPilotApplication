@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">59.52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/42</span>
+                <span class='fraction'>25/42</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">68.75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>11/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">59.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/42</span>
+                <span class='fraction'>25/42</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -166,8 +166,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,15 +190,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,8 +211,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,8 +222,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,8 +234,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,9 +253,9 @@ describe ("Get /fuelquote/quoteform/getquotehistory", ()=&gt;{
     it ("should return all quote history", (done) =&gt; {
         chai.request(server)
         .get("/quoteform/getquotehistory")
-        .end((err,res) =&gt; {
-            res.should.have.status(200);
-        done();
+        .end(<span class="fstat-no" title="function not covered" >(e</span>rr,res) =&gt; {
+<span class="cstat-no" title="statement not covered" >            res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
         })
     })
 } )
@@ -277,16 +277,16 @@ describe('Quote History API', () =&gt; {
         chai.request(server)
           .post('/quoteform')
           .send(quote)
-          .end((err, res) =&gt; {
-            res.should.have.status(201);
-            res.body.should.be.a('object');
-            res.body.should.have.property('message').eql('Quote added successfully');
-            res.body.quote.should.have.property('gallonsRequested');
-            res.body.quote.should.have.property('deliveryAddress');
-            res.body.quote.should.have.property('deliveryDate');
-            res.body.quote.should.have.property('suggestedPricePerGallon');
-            res.body.quote.should.have.property('totalAmountDue');
-            done();
+          .end(<span class="fstat-no" title="function not covered" >(e</span>rr, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >            res.should.have.status(201);</span>
+<span class="cstat-no" title="statement not covered" >            res.body.should.be.a('object');</span>
+<span class="cstat-no" title="statement not covered" >            res.body.should.have.property('message').eql('Quote added successfully');</span>
+<span class="cstat-no" title="statement not covered" >            res.body.quote.should.have.property('gallonsRequested');</span>
+<span class="cstat-no" title="statement not covered" >            res.body.quote.should.have.property('deliveryAddress');</span>
+<span class="cstat-no" title="statement not covered" >            res.body.quote.should.have.property('deliveryDate');</span>
+<span class="cstat-no" title="statement not covered" >            res.body.quote.should.have.property('suggestedPricePerGallon');</span>
+<span class="cstat-no" title="statement not covered" >            res.body.quote.should.have.property('totalAmountDue');</span>
+<span class="cstat-no" title="statement not covered" >            done();</span>
           });
       });
     });
@@ -298,9 +298,9 @@ describe ("Get quoteform/getquotehistory/:id", ()=&gt;{
         const id = 1;
         chai.request(server)
         .get(`/quoteform/getquotehistory/${id}`)
-        .end((err,res) =&gt; {
-            res.should.have.status(200);
-        done();
+        .end(<span class="fstat-no" title="function not covered" >(e</span>rr,res) =&gt; {
+<span class="cstat-no" title="statement not covered" >            res.should.have.status(200);</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
         })
     })
 } )
@@ -309,9 +309,9 @@ describe ("Get /fuelquote/quoteform/getquotehistory/:id", ()=&gt;{
     it ("should return an exception error", (done) =&gt; {
         chai.request(server)
         .get('/quoteform/getquotehistory/invalidId')
-        .end((err,res) =&gt; {
-            res.should.have.status(404);
-        done();
+        .end(<span class="fstat-no" title="function not covered" >(e</span>rr,res) =&gt; {
+<span class="cstat-no" title="statement not covered" >            res.should.have.status(404);</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
         })
     })
 } )
@@ -321,9 +321,9 @@ describe ("Get /fuelquote/quoteform/getquotehistory/:id", ()=&gt;{
         const invalidID = 1000
         chai.request(server)
         .get(`/fuelquote/quoteform/getquotehistory/${invalidID}`)
-        .end((err,res) =&gt; {
-            res.should.have.status(404);
-        done();
+        .end(<span class="fstat-no" title="function not covered" >(e</span>rr,res) =&gt; {
+<span class="cstat-no" title="statement not covered" >            res.should.have.status(404);</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
         })
     })
 } )
@@ -334,7 +334,7 @@ describe ("Get /fuelquote/quoteform/getquotehistory/:id", ()=&gt;{
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-30T02:14:42.367Z
+                at 2024-04-12T04:08:05.233Z
             </div>
         <script src="../prettify.js"></script>
         <script>
