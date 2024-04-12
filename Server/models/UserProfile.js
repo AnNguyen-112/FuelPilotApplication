@@ -5,6 +5,7 @@
 //       state,
 //       zipCode,
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema
 const userProfileSchema = new mongoose.Schema({
   fullName: {
     type: String,
@@ -30,11 +31,11 @@ const userProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // userId: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "User",
-  //   required: true,
-  // }
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  }
 });
 
-module.exports = mongoose.model("userProfileModel", userProfileSchema);
+module.exports = mongoose.model("userProfileModels", userProfileSchema);
