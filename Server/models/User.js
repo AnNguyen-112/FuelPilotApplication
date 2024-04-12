@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 // "password": "",
 // "debug": true
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     tentant: {
         type: String,
         required:true,

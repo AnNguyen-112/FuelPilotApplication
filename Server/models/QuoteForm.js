@@ -7,9 +7,9 @@ const Schema = mongoose.Schema
 // "deliveryAddress": "999 Main St, City, State, Zipcode",
 // "deliveryDate": "2024-02-22",
 // "suggestedPricePerGallon": 10,
-// "totalAmountDue": 50
+// "totalAmountDue": 50 
 
-const quoteFormSchema = new mongoose.Schema({
+const quoteFormSchema = new Schema({
     gallonsRequested: {
         type: String,
         required:true
@@ -37,4 +37,4 @@ const quoteFormSchema = new mongoose.Schema({
       }
 })
 
-module.exports = mongoose.model('quoteform',quoteFormSchema);
+module.exports = mongoose.model('QuoteForm',quoteFormSchema); 

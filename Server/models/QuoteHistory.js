@@ -2,18 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 
-const quoteHistorySchema = new mongoose.Schema({
-    quoteFormList: [
-        {
-          QuoteFormId: {type: Schema.Types.ObjectId,
-            ref: "QuoteForm"}
-        }
-    ],
+
+const quoteHistorySchema = new Schema({
+    quoteFormList: [{type: Schema.ObjectId, ref: "QuoteForm"}],
     user: {
       email: {
         type: String,
       },
-        _id: {
+        userId: {
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true

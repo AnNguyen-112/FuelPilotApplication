@@ -1,12 +1,15 @@
+const mongoose = require("mongoose");
+
+const Schema = mongoose.Schema
+
 // fullName,
 //       address1,
 //       address2,
 //       city,
 //       state,
 //       zipCode,
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema
-const userProfileSchema = new mongoose.Schema({
+const userProfileSchema = new Schema({
+
   fullName: {
     type: String,
     required: true,
