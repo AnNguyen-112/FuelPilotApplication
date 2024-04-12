@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import image from "./Assets/images/fuel-pilot-background.png";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import {
   MDBCol,
   MDBRow,
@@ -11,6 +13,8 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit";
 const ProfileManagement = () => {
+  const { user, isAuthenticated } = useAuth0();
+  const userEmail = isAuthenticated && user?.email;
   const [profileUpdated, setProfileUpdated] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const {
@@ -19,7 +23,37 @@ const ProfileManagement = () => {
     reset,
     formState: { errors },
   } = useForm();
-
+  //Checking if user already has a profile
+  useEffect(() => {
+    if (isAuthenticated && user?.email) {
+      const fetchData = async () => {
+        try
+        {
+           const response = await fetch(
+          `http://localhost:3500/userProfile?userEmail=${userEmail}`
+        );
+        if (!response.ok) {
+          throw new Error("Fail to fetch Data");
+        }
+        const data = await response.json();
+        if(data){
+          setProfileData(data);
+          setProfileUpdated(true);
+          reset(data);
+        }else{
+          setProfileData(null);
+          setProfileUpdated(false);
+        }
+      }
+      catch(error){
+          setProfileData(null);
+          setProfileUpdated(false);
+      }
+        }
+       fetchData();
+    }
+  },[user, isAuthenticated, reset]);
+  // const userEmail = isAuthenticated && user?.email;
   const onSubmit = (data) => {
     fetch("http://localhost:3500/userProfile", {
       method: "POST",
@@ -153,6 +187,12 @@ const ProfileManagement = () => {
                       </p>
                       {/* NAME INPUT */}
                       <div className="form-outline form-white mb-4">
+                        <input
+                          type="hidden"
+                          id="userEmail"
+                          {...register("userEmail", { required: true })}
+                          defaultValue={userEmail}
+                        />
                         <input
                           type="text"
                           id="fullName"
