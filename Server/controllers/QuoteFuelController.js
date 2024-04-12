@@ -32,7 +32,7 @@ const addQuoteToHistory = async (req, res) => {
 
     await newQuoteForm.save();
 
-    console.log(newQuoteForm);
+    // console.log(newQuoteForm);
 
     const existingQuoteHistory = await QuoteHistory.findOne({
       "user.userId": user._id,
