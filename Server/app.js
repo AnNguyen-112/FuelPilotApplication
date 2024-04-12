@@ -89,17 +89,15 @@ app.use((err, req, res, next) => {
 
 // Start the server
 const PORT = process.env.PORT || 3500;
-// module.exports = app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });
 
-// mongoose.connect('mongodb+srv://admin:admin@cluster0.d1xdybt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-// .then(()=>{
-//   console.log("Connected to mongoDB")
+
+mongoose.connect(process.env.MONGODB_URI)
+.then(()=>{
+  console.log("Connected to mongoDB")
   
-// }).catch(()=>{
-//   console.log(error)
-// })
+}).catch((error)=>{
+  console.log(error)
+})
 
 // mongoose.connection.once('open', () => {
 //   console.log('Connect to MongoDB');

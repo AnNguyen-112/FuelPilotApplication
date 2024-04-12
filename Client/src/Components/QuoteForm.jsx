@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import image from "./Assets/images/background_2.png"
+import { useAuth0 } from '@auth0/auth0-react';
 
 import styled from "styled-components";
 const QuoteForm = () => {
@@ -11,25 +12,40 @@ const QuoteForm = () => {
 
   //for date
   const yesterday = new Date();
-yesterday.setDate(yesterday.getDate() - 1);
+  yesterday.setDate(yesterday.getDate() - 1);
   const [deliveryDate, setDeliveryDate] = useState(yesterday);
+
+  const { user, isAuthenticated } = useAuth0();
+
+  const userEmail = isAuthenticated && user?.email;
 
 
  
-    const fetchPriceAndTotal = async() => {
-      const response = await fetch("http://localhost:3500/pricing");
+    
+
+    const handleSubmitQuoteForm = async(e) => {
+      e.preventDefault();
+      // future assigment quote form module after receive a price  
+      const response = await fetch("http://localhost:3500/quoteform",{
+        method:'POST',
+        headers:{
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userEmail: userEmail,
+          gallonRequested: gallonRequested,
+          deliveryAddress: deliveryAddress,
+          deliveryDate: deliveryDate,
+          suggestedPricePerGallon: suggestedPricePerGallon,
+          totalAmountDue: total,
+        }),
+      })
+
       if (!response.ok){
         throw new Error('Failed to fetch Data');
       };
       const data = await response.json();
       console.log(data);
-      // setSuggestPricePerGallon(data.)
-    }
-
-    const handleSubmitQuoteForm = async(e) => {
-      e.preventDefault();
-      
-      // future assigment quote form module after receive a price  
       
 
     }
@@ -44,17 +60,20 @@ yesterday.setDate(yesterday.getDate() - 1);
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            gallonsRequested: gallonRequested,
+            userEmail: userEmail,
+            gallonRequested: gallonRequested,           
             deliveryDate: deliveryDate,
           }),
         });
+
         if (!response.ok){
           throw new Error('Failed to fetch Data');
         };
         const data = await response.json();
-        console.log(data.Pricing.suggestedPricePerGallon);
+        console.log(data);
         setSuggestedPricePerGallon(data.Pricing.suggestedPricePerGallon);
         setTotal(data.Pricing.total);
+        setDeliveryAddress(data.Pricing.userAddress);
       
     }
 
@@ -69,6 +88,9 @@ yesterday.setDate(yesterday.getDate() - 1);
         backgroundPosition: 'center',
     }}>
     <form className="container border p-2 round-23 shadow-lg bg-light">
+      <div className="m-2">
+        <input type="hidden" id="userEmail" name="userEmail" defaultValue={userEmail}/>
+      </div>
       <div className="m-2">
         <label
           htmlFor="gallonRequest"
@@ -96,7 +118,8 @@ yesterday.setDate(yesterday.getDate() - 1);
         <input
           type="text"
           className="form-control"
-          placeholder="9999 NineRoad City State 77072"
+          // placeholder=""
+          value={deliveryAddress}
           disabled
           id="deliveryAddressFormControlInput"
         ></input>

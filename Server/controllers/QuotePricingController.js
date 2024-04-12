@@ -4,7 +4,9 @@ const { StatusCodes } = require("http-status-codes");
 
 const postPricingFromQuote = async (req, res) => {
   const unfinishQuote = req.body;
-  // get the address from user and calculate the pricing and total amount
+  console.log(unfinishQuote);
+
+// get the email from user and calculate the pricing and total amount
 
   const requiredDate = new Date(unfinishQuote.deliveryDate);
 
@@ -21,6 +23,7 @@ const postPricingFromQuote = async (req, res) => {
     const Pricing = {
       suggestedPricePerGallon: 50,
       total: 100,
+      userAddress: "9999 NineRoad City State 77072"
     };
 
     //return the pricing, can change to a full quote if want

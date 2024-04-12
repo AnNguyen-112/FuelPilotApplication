@@ -14,6 +14,7 @@ const profileHistory = JSON.parse(userData);
 //Getting user profile from the profile form.
 const getUserProfile = async (req, res) => {
   const newProfile = req.body;
+  console.log();
 
   const userProfile = { ...newProfile, updateStatus: "Success" };
   // console.log(userProfile);

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const Schema = mongoose.Schema
+
 // "id": 1,
 // "gallonsRequested": 5,
 // "deliveryAddress": "999 Main St, City, State, Zipcode",
@@ -9,7 +11,7 @@ const mongoose = require('mongoose')
 
 const quoteFormSchema = new mongoose.Schema({
     gallonsRequested: {
-        type: Number,
+        type: String,
         required:true
     },
     deliveryAddress: {
@@ -21,11 +23,11 @@ const quoteFormSchema = new mongoose.Schema({
         required:true
     },
     suggestedPricePerGallon: {
-        type: Number,
+        type: String,
         required:true
     },
     totalAmountDue: {
-        type: Number,
+        type: String,
         required:true
     },
     userId: {

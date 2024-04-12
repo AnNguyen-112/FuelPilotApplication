@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
 // "_id": ,
 // "tentant": ,
@@ -14,23 +15,29 @@ const userSchema = new mongoose.Schema({
     },
     connection: {
         type: String,
-        required: true,
+        require: true,
     },
     email : {
         type: String,
         required: true,
-    // },
-    // quoteHistory: {
-    //     items: [
-    //         {
-    //           quoteFormId: {
-    //             type: Schema.Types.ObjectId,
-    //             ref: "quoteform",
-    //             required: true,
-    //           },
-    //         },
-    //       ],
-    }
+        unique: true
+     },
+    password: {
+        type: String,
+        required: true,
+        select: false // Exclude password from query results by default
+    },
+    debug: {
+        type:Boolean
+    },
+    is_signup: {
+        type: Boolean,
+        require: true,
+    },
+    usePasskey: {
+        type: Boolean,
+        require: true
+    }    
 })
 
-module.exports = mongoose.model('user',userSchema);
+module.exports = mongoose.model('User',userSchema);
