@@ -39,6 +39,37 @@ describe("Post /userProfile", () => {
   });
 });
 describe("Post /userProfile", () => {
+  it("should create new user information", (done) => {
+    let userProfile = {
+      userEmail: "test2@test.com",
+      fullName: "John Doe",
+      address1: "123 Main St",
+      address2: "Apt 4",
+      city: "Anytown",
+      state: "Anystate",
+      zipCode: "12345",
+    };
+    chai
+      .request(server)
+      .post("/userProfile")
+      .send(userProfile)
+      .end((err, response) => {
+        response.should.have.status(201);
+        response.body.should.be.a("object");
+        // Checking if the userProfile is returned
+        response.body.should.have.property("fullName");
+        response.body.should.have.property("address1");
+        response.body.should.have
+          .property("address2")
+          .eql(userProfile.address2);
+        response.body.should.have.property("city");
+        response.body.should.have.property("state");
+        response.body.should.have.property("zipCode");
+        done();
+      });
+  });
+});
+describe("Post /userProfile", () => {
   it("return exception error because did not provide enough information.", (done) => {
     let userProfile = {
       userEmail: "test1@test.com",

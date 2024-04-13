@@ -11,8 +11,8 @@ chai.use(chaiHttp);
 describe('Quote History API', () => {
       it('it should post the price', (done) => {
         const unfinishedQuote = {
+            userEmail: "test1@test.com",
             gallonsRequested: 100,
-            deliveryAddress: "1234 Test St, City, State, Zip",
             deliveryDate: "2024-01-01",
           };
         chai.request(server)

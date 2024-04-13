@@ -9,9 +9,7 @@
     "start": "nodemon app.js",
     "start-server": "node app.js"
   },
-  "nyc": {
-    "exclude": "app.js"
-  },
+  "nyc": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
