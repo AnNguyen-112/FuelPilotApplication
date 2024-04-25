@@ -11,24 +11,43 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import image from "./Assets/images/background_2.png"
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 const QuoteHistory = () => {
     const [fuelHistory, setFuelHistory] = useState([
       ]);
 
-      //fetching data
-    useEffect(() => {
-      const fetchData = async() => {
-        const response = await fetch("http://localhost:3500/quoteform/getquotehistory");
-        if (!response.ok){
-          throw new Error('Failed to fetch Data');
-        };
-        const data = await response.json();
-        setFuelHistory(data);
-      }
-      fetchData();
-    })
+      const { user, isAuthenticated } = useAuth0();
+
+      const userEmail = isAuthenticated && user?.email;
+
+      
+        //fetching data
+   
+      useEffect(() => {
+        const fetchData = async () => {    
+            console.log(userEmail); 
+            const response = await fetch(`http://localhost:3500/quoteform/getquotehistory?userEmail=${userEmail}`);            
+            if (!response.ok)
+            {
+              throw new Error('Fail to fetch Data')
+            } else {
+              const data = await response.json();
+              setFuelHistory(data);
+            }
+        };  
+        if (userEmail) 
+        {
+          fetchData(); 
+        }    
+                    
+             
+      }, [userEmail]);
+      
+      
+
+      
 
 
     return (    
