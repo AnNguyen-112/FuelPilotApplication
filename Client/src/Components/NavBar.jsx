@@ -63,14 +63,6 @@ const NavBar = () => {
               )}
               <li>
                 <div>
-                  <form className="mb-lg-0 col align-self-center ps-5">
-                    <input
-                      className="form-control form-control-lg "
-                      type="search"
-                      placeholder="Search..."
-                      aria-label="Search"
-                    />
-                  </form>
                 </div>
               </li>
             </ul>

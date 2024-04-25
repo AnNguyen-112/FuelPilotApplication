@@ -12,12 +12,14 @@ import {
   MDBContainer,
   MDBBtn,
 } from "mdb-react-ui-kit";
+
 const ProfileManagement = () => {
   const { user, isAuthenticated } = useAuth0();
   const userEmail = isAuthenticated && user?.email;
   const [profileUpdated, setProfileUpdated] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showPopup, setShowPopup]  = useState(false); 
   const {
     register,
     handleSubmit,
@@ -83,6 +85,8 @@ const ProfileManagement = () => {
         console.log("Success:", data);
         setProfileUpdated(true);
         setProfileData(data);
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 3000);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -409,6 +413,11 @@ const ProfileManagement = () => {
               </div>
             </div>
           </div>
+          {showPopup && (
+          <div style={{ position: "fixed", top: "20%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", padding: "20px", borderRadius: "10px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
+            Your Information Has Been Saved
+          </div>
+        )}
         </div>
       </section>
     );
