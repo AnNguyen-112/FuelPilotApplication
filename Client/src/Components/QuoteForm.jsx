@@ -19,6 +19,28 @@ const QuoteForm = () => {
 
   const userEmail = isAuthenticated && user?.email;
 
+  useEffect(() => {
+    const handleUserAdress = async() => {
+      const response = await fetch(`http://localhost:3500/quoteform/getaddress?userEmail=${userEmail}`, )
+      if (!response.ok)
+      {
+        const badData = await response.json();
+        console.log(badData);
+        setDeliveryAddress(badData.message);
+      } else {
+        const data = await response.json();
+        // console.log(data);
+        setDeliveryAddress(data.userAddress);
+      }
+    }
+
+    if (userEmail)
+    {
+      handleUserAdress();
+    }
+  },[userEmail])
+    
+
 
  
     
@@ -61,6 +83,7 @@ const QuoteForm = () => {
           },
           body: JSON.stringify({
             userEmail: userEmail,
+            userAddress: deliveryAddress,
             gallonRequested: gallonRequested,           
             deliveryDate: deliveryDate,
           }),
@@ -70,10 +93,10 @@ const QuoteForm = () => {
           throw new Error('Failed to fetch Data');
         };
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setSuggestedPricePerGallon(data.Pricing.suggestedPricePerGallon);
         setTotal(data.Pricing.total);
-        setDeliveryAddress(data.Pricing.userAddress);
+        
       
     }
 
@@ -182,7 +205,9 @@ const QuoteForm = () => {
         className="col-6  btn btn-dark rounded-0 ms-1" 
         type="submit"  
         onClick={handleSubmitPrice}
-        disabled={gallonRequested <= 0 || Date.parse(deliveryDate) <= yesterday}
+        disabled={gallonRequested <= 0 || 
+                  Date.parse(deliveryDate) <= yesterday||
+                  deliveryAddress === "ADDRESS NOT FOUND. Please fill in profile management before continue"}
         >
           Checking price</button>
       </div>
