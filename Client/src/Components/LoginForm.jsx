@@ -2,14 +2,18 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import image from "./Assets/images/fuel-pilot-background.png"
 import LoginButton from "./LoginButton";
-import LogoutButton from "./LogoutButton";
+// import LogoutButton from "./LogoutButton";
 import Profile from "./Profile";
 import { useAuth0 } from "@auth0/auth0-react";
+import styled from "styled-components";
+
+import { FaArrowRight } from "react-icons/fa";
 
 const LoginForm = () => {
   const { user, isAuthenticated } = useAuth0();
 
   return (
+    <Wrapper>
     <section class="vh-100"
     style={{
       backgroundImage: `url(${image})`,
@@ -64,7 +68,14 @@ const LoginForm = () => {
                   </button> */}
                   <LoginButton />
                   <Profile />
-                  <LogoutButton />
+                  {isAuthenticated && (
+                  <div  >
+                    <a href="/quote" className="link">
+                    < FaArrowRight /> Click Here To Try Fuel Quote 
+                    </a>
+                  </div>
+                  )}
+                  {/* <LogoutButton /> */}
                 </div>
                 <div>
                   {/*<p class="mb-0">
@@ -80,7 +91,17 @@ const LoginForm = () => {
         </div>
       </div>
     </section>
+    </Wrapper>
   );
 };
 
+const Wrapper = styled.div`
+
+
+.link {
+  text-decoration: none; /* Removes underline from the link */
+  color: white;
+  font-size: 20px;
+}
+`;
 export default LoginForm;

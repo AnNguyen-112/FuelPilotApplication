@@ -4,6 +4,9 @@ import { FaSignInAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
+import LogoutButton from "./LogoutButton";
+
+
 const NavBar = () => {
   const { user, isAuthenticated } = useAuth0();
 
@@ -27,11 +30,11 @@ const NavBar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-lg-0">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/">
                   Home
                 </NavLink>
-              </li>
+              </li> */}
               {isAuthenticated && (
                 <li className="nav-item">
                   <NavLink className="nav-link" aria-current="page" to="/quote">
@@ -66,10 +69,18 @@ const NavBar = () => {
                 </div>
               </li>
             </ul>
-            {/*SENDING USER EMAIL INTO THE BACKEND*/}
-            {isAuthenticated && (
+            {isAuthenticated && (             
               <div className="nav-item mb-2 mb-lg-0 p-2 d-flex align-items-center">
+                <p className="m-0 ps-1 text-light">
+                  <LogoutButton />
+                </p>
+              </div>)}
+            {/*SENDING USER EMAIL INTO THE BACKEND*/}
+            {isAuthenticated && (             
+              <div className="nav-item mb-2 mb-lg-0 p-2 d-flex align-items-center">
+                
                 {user?.picture && (
+                  
                   <img
                     src={user.picture}
                     alt={user?.name}
@@ -79,6 +90,8 @@ const NavBar = () => {
                 <p className="m-0 ps-1 text-light">
                   Welcome back, {user?.name}
                 </p>
+                
+
               </div>
             )}
           </div>

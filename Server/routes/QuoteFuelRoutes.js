@@ -102,14 +102,18 @@ const router = express.Router();
 
 const {
   addQuoteToHistory,
+  getUserAddress,
   getAllQuoteHistory,
   getSingleQuoteHistory,
 } = require("../controllers/QuoteFuelController");
 
 router.route("/").post(addQuoteToHistory);
 
+router.route("/getaddress").get(getUserAddress);
+
 router.route("/getquotehistory").get(getAllQuoteHistory);
 
 router.route("/getquotehistory/:id").get(getSingleQuoteHistory);
+
 
 module.exports = router;
