@@ -8,6 +8,7 @@ const { quoteHistoryData } = require("../mockData/QuoteHistory");
 const User = require("../models/User");
 const QuoteForm = require("../models/QuoteForm");
 const QuoteHistory = require("../models/QuoteHistory");
+const UserProfile = require("../models/UserProfile");
 
 const addQuoteToHistory = async (req, res) => {
   const userEmail = req.body.userEmail;
@@ -37,12 +38,10 @@ const addQuoteToHistory = async (req, res) => {
     const existingQuoteHistory = await QuoteHistory.findOne({
       "user.userId": user._id,
     });
-    
 
     if (!existingQuoteHistory) {
-     
       const newQuoteHistory = new QuoteHistory({
-        quoteFormList : [newQuoteForm],
+        quoteFormList: [newQuoteForm],
         user: {
           email: userEmail,
           userId: user._id,
@@ -50,15 +49,13 @@ const addQuoteToHistory = async (req, res) => {
       });
       await newQuoteHistory.save();
       // console.log(newQuoteHistory);
-    } 
-    else 
-    {
+    } else {
       existingQuoteHistory.quoteFormList.push(newQuoteForm);
       await existingQuoteHistory.save();
     }
-    res.status(StatusCodes.CREATED).json({ message: "Quote added successfully" });
-
-
+    res
+      .status(StatusCodes.CREATED)
+      .json({ message: "Quote added successfully" });
   } catch (err) {
     console.log(err);
     res.status(404).json({ error: "Failed to add quote to history" });
@@ -70,50 +67,92 @@ const addQuoteToHistory = async (req, res) => {
   //   .status(StatusCodes.NOT_FOUND)
   //   .json({ message: "No Quote found" });
   // }
+};
 
-  
+const getUserAddress = async (req, res) => {
+  const userEmail = req.query.userEmail;
+  // console.log(userEmail);
+
+  const user = await User.findOne({email: userEmail});
+  if (!user)
+  {
+    res.status(StatusCodes.NOT_FOUND).json({message: "User Not Found"});
+  }
+
+  const existingUserProfile = await UserProfile.findOne({ userId: user._id });
+  if (!existingUserProfile) {
+    res.status(StatusCodes.NOT_FOUND).json({message: "ADDRESS NOT FOUND. Please fill in profile management before continue"});
+  } else if (
+    !existingUserProfile.address1 ||
+    !existingUserProfile.city ||
+    !existingUserProfile.state ||
+    !existingUserProfile.zipCode
+  )
+  {
+    res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({
+        message:
+       "ADDRESS NOT FOUND. Please fill in profile management before continue"});
+  } else 
+  {
+    const userAddress = existingUserProfile.address1 +
+    " " +
+    existingUserProfile.city +
+    ", " +
+    existingUserProfile.state +
+    ", " +
+    existingUserProfile.zipCode;
+
+    
+
+    res.status(StatusCodes.OK).json({userAddress});
+  } 
+
 };
 
 const getAllQuoteHistory = async (req, res) => {
   const userEmail = req.query.userEmail;
-  console.log(userEmail);
+  // console.log(userEmail);
 
   try {
-    const user = await User.findOne({email: userEmail});
-    
+    const user = await User.findOne({ email: userEmail });
 
-    if (!user)
-    {
-      res
-      .status(StatusCodes.NOT_FOUND)
-      .json({ message: "USER NOT FOUND" });
-
+    if (!user) {
+      res.status(StatusCodes.NOT_FOUND).json({ message: "USER NOT FOUND" });
     } else {
       const userId = user._id;
-      const existingQuoteHistory = await QuoteHistory
-      .findOne({ "user.userId": userId })
-      .populate('quoteFormList')
-      .exec();
+      const existingQuoteHistory = await QuoteHistory.findOne({
+        "user.userId": userId,
+      })
+        .populate("quoteFormList")
+        .exec();
 
-      
       // console.log(existingQuoteHistory);
-  
-      //  if (!existingQuoteHistory) {
-  
-      //   res
-      //   .status(StatusCodes.NOT_FOUND)
-      //   .json({ message: "USER HISTORY NOT FOUND" });
-      // }
-  
-      
-      res.status(StatusCodes.OK).json(existingQuoteHistory.quoteFormList);
-    }
-    
+      if (existingQuoteHistory) {
+        
+        const quoteFormList = existingQuoteHistory.quoteFormList;
+        if (quoteFormList) {
+          res.status(StatusCodes.OK).json(existingQuoteHistory.quoteFormList);
+        } else {
+          // Handle the case where quoteFormList is null
+          res
+          .status(StatusCodes.NOT_FOUND)
+          .json({ message: "USER HISTORY NOT FOUND" });
+        }
+      } else {
+        // Handle the case where existingQuoteHistory is null
+        res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "USER HISTORY NOT FOUND" });
+      }
 
+
+      
+    }
   } catch (err) {
     console.log(err);
   }
-  
 };
 
 const getSingleQuoteHistory = async (req, res) => {
@@ -135,6 +174,7 @@ const getSingleQuoteHistory = async (req, res) => {
 
 module.exports = {
   addQuoteToHistory,
+  getUserAddress,
   getAllQuoteHistory,
   getSingleQuoteHistory,
 };

@@ -31,7 +31,7 @@ const QuoteHistory = () => {
             const response = await fetch(`http://localhost:3500/quoteform/getquotehistory?userEmail=${userEmail}`);            
             if (!response.ok)
             {
-              throw new Error('Fail to fetch Data')
+              
             } else {
               const data = await response.json();
               setFuelHistory(data);

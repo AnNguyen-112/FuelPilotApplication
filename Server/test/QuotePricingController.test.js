@@ -5,6 +5,9 @@ const { response } = require('express');
 
 chai.should();
 
+var expect = chai.expect;
+
+
 chai.use(chaiHttp);
 
 // Testing posting price from quote
@@ -12,6 +15,7 @@ describe('Quote History API', () => {
       it('it should post the price', (done) => {
         const unfinishedQuote = {
             userEmail: "test1@test.com",
+            userAddress: "abc1 Katy, TX, 70000",
             gallonsRequested: 100,
             deliveryDate: "2024-01-01",
           };
@@ -28,8 +32,8 @@ describe('Quote History API', () => {
     describe('POST /pricingFromQuote', () => {
       it('should return 404 if user not found', (done) => {
         chai.request(server)
-          .post('/pricingFromQuote')
-          .send({ userEmail: 'nonexistent@example.com', gallonRequested: 500, deliveryDate: '2024-04-25' })
+          .post('/pricing')
+          .send({ userEmail: 'nonexistent@example.com', userAddress: "abc1 Katy, TX, 70000", gallonRequested: 500, deliveryDate: '2024-04-25' })
           .end((err, res) => {
             expect(res).to.have.status(404);
             expect(res.body).to.have.property('message', 'User not found');
@@ -38,21 +42,22 @@ describe('Quote History API', () => {
       });
   
       it('should return 400 if address details are incomplete', (done) => {
-        // Assuming 'incomplete@example.com' is a known test case in your test DB
+        // Assuming 'test4@test.com' is a known test case in your test DB
         chai.request(server)
-          .post('/pricingFromQuote')
-          .send({ userEmail: 'incomplete@example.com', gallonRequested: 500, deliveryDate: '2024-04-25' })
+          .post('/pricing')
+          .send({ userEmail: 'test4@test.com',  userAddress: "", gallonRequested: 500, deliveryDate: '2024-04-25' })
           .end((err, res) => {
-            expect(res).to.have.status(400);
-            expect(res.body.message).to.equal("Please fill in your physical address in profile management before continue");
+            expect(res).to.have.status(404);
+            expect(res.body.message).to.equal("Please fill in profile management before continue");
             done();
           });
       });
   
       it('should return 400 for invalid input', (done) => {
+        // Assuming 'test1@test.com' is a known test case in your test DB
         chai.request(server)
-          .post('/pricingFromQuote')
-          .send({ userEmail: 'user@example.com', gallonRequested: 'invalid', deliveryDate: 'not-a-date' })
+          .post('/pricing')
+          .send({ userEmail: 'test1@test.com',  userAddress: "abc1 Katy, TX, 70000",gallonRequested: 'invalid', deliveryDate: 'not-a-date' })
           .end((err, res) => {
             expect(res).to.have.status(400);
             expect(res.body).to.have.property('message', 'Wrong Input');
@@ -62,14 +67,14 @@ describe('Quote History API', () => {
   
       it('should return 200 and calculate the correct pricing', (done) => {
         // You need a user with a complete profile and valid quote history for this test
+        // Assuming 'test1@test.com' is a known test case in your test DB
         chai.request(server)
-          .post('/pricingFromQuote')
-          .send({ userEmail: 'valid@example.com', gallonRequested: 1200, deliveryDate: '2024-04-25' })
+          .post('/pricing')
+          .send({ userEmail: 'test1@test.com',  userAddress: "abc1 Katy, TX, 70000", gallonRequested: 1200, deliveryDate: '2024-04-25' })
           .end((err, res) => {
             expect(res).to.have.status(200);
             expect(res.body).to.have.nested.property('Pricing.suggestedPricePerGallon');
             expect(res.body).to.have.nested.property('Pricing.total');
-            expect(res.body).to.have.nested.property('Pricing.userAddress');
             done();
           });
       });

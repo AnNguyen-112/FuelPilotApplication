@@ -12,6 +12,7 @@ const postPricingFromQuote = async (req, res) => {
 
   // from client:
   // userEmail: userEmail,
+  // userAddress: userAddress,
   // gallonRequested: gallonRequested,
   // deliveryDate: deliveryDate,
 
@@ -26,28 +27,12 @@ const postPricingFromQuote = async (req, res) => {
 
   const userProfile = await UserProfile.findOne({ userId: user._id });
 
-  if (
-    !userProfile.address1 ||
-    !userProfile.city ||
-    !userProfile.state ||
-    !userProfile.zipCode
-  ) {
-    res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({
-        message:
-          "Please fill in your physical address in profile management before continue",
-      });
-  } else
-    userAddress =
-      userProfile.address1 +
-      " " +
-      userProfile.city +
-      ", " +
-      userProfile.state +
-      ", " +
-      userProfile.zipCode;
+  if (!userProfile)
+  {
+    res.status(StatusCodes.NOT_FOUND).json({message:"Please fill in profile management before continue"})
+  }
 
+  
   const requiredDate = new Date(unfinishQuote.deliveryDate);
 
   //validation for post input
@@ -106,7 +91,7 @@ const postPricingFromQuote = async (req, res) => {
         rateHistoryFactor +
         gallonRequestedFactor +
         companyProfitFactor);
-    console.log(gallonRequestedFactor);
+    // console.log(gallonRequestedFactor);
 
     //suggested price
     const suggestedPricePerGallon = currentPrice + margin;
@@ -116,8 +101,7 @@ const postPricingFromQuote = async (req, res) => {
     // mock data
     const Pricing = {
       suggestedPricePerGallon: suggestedPricePerGallon,
-      total: totalPrice,
-      userAddress: userAddress,
+      total: totalPrice
     };
 
     res.status(StatusCodes.OK).json({ Pricing });
