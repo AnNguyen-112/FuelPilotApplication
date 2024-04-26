@@ -54,7 +54,7 @@ describe("Post /userProfile", () => {
       .post("/userProfile")
       .send(userProfile)
       .end((err, response) => {
-        response.should.have.status(201);
+        response.should.have.status(200);
         response.body.should.be.a("object");
         // Checking if the userProfile is returned
         response.body.should.have.property("fullName");

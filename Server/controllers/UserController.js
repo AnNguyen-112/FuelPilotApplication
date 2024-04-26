@@ -74,7 +74,7 @@ const getUserProfile = async (req, res) => {
         userId: user._id,
       });
       await userProfile.save();
-      res.status(StatusCodes.CREATED).json(userProfile);
+      res.status(StatusCodes.OK).json(userProfile);
     }
   } catch (err) {
     console.log(err);

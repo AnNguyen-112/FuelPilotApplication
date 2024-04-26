@@ -2,24 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import image from "./Assets/images/fuel-pilot-background.png";
 import { useAuth0 } from "@auth0/auth0-react";
-
-import {
-  MDBCol,
-  MDBRow,
-  MDBCard,
-  MDBCardText,
-  MDBCardBody,
-  MDBContainer,
-  MDBBtn,
-} from "mdb-react-ui-kit";
-
 const ProfileManagement = () => {
   const { user, isAuthenticated } = useAuth0();
   const userEmail = isAuthenticated && user?.email;
   const [profileUpdated, setProfileUpdated] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [showPopup, setShowPopup]  = useState(false); 
+  const [showPopup, setShowPopup] = useState(false);
   const {
     register,
     handleSubmit,
@@ -107,75 +96,137 @@ const ProfileManagement = () => {
           backgroundPosition: "center",
         }}
       >
-        <MDBContainer>
-          <MDBRow className="justify-content-center">
-            <MDBCol md="12" lg="12" xl="12">
-              <MDBCard className="mb-4">
-                <MDBCardBody>
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Full Name</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">
-                        {profileData.fullName}
-                      </MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Address</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">
-                        {" "}
-                        {profileData.address1}
-                        {profileData.address2 && `, ${profileData.address2}`}
-                      </MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>City</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">
-                        {profileData.city}
-                      </MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>State</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">
-                        {" "}
-                        {profileData.state}
-                      </MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>ZipCode</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">
-                        {" "}
-                        {profileData.zipCode}
-                      </MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
-                </MDBCardBody>
-                <MDBBtn onClick={handleEditProfile}>Edit Profile</MDBBtn>
-              </MDBCard>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
+        <div className="col-md-8">
+          <div className="card">
+            <div className="card-header pb-0 bg-dark">
+              <div className="d-flex align-items-center">
+                <p className="mb-0" style={{ fontWeight: 'bold', color: '#F8F8FF', fontSize: '1.3rem'}}>CUSTOMER PROFILE</p>
+              </div>
+            </div>
+            <div className="card-body">
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label
+                      htmlFor="example-text-input"
+                      className="form-control-label"
+                    >
+                      Username
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={user?.name}
+                      disabled
+                    />{" "}
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label
+                      htmlFor="example-firstname-input"
+                      className="form-control-label"
+                    >
+                      Name
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={profileData.fullName}
+                      disabled
+                    />{" "}
+                  </div>
+                </div>
+              </div>
+              <hr className="horizontal dark" />
+              <p className="text-uppercase text-sm">Contact Information</p>
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="form-group">
+                    <label
+                      htmlFor="example-address-input"
+                      className="form-control-label"
+                    >
+                      Address 1
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={profileData.address1}
+                      disabled
+                    />{" "}
+                  </div>
+                  <div className="form-group">
+                    <label
+                      htmlFor="example-address-input"
+                      className="form-control-label"
+                    >
+                      Address 2
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={profileData.address2}
+                      disabled
+                    />{" "}
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label
+                      htmlFor="example-city-input"
+                      className="form-control-label"
+                    >
+                      City
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={profileData.city}
+                      disabled
+                    />{" "}
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label
+                      htmlFor="example-country-input"
+                      className="form-control-label"
+                    >
+                      State
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={profileData.state}
+                      disabled
+                    />{" "}
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label
+                      htmlFor="example-postalcode-input"
+                      className="form-control-label"
+                    >
+                      Postal code
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={profileData.zipCode}
+                      disabled
+                    />{" "}
+                  </div>
+                </div>
+              </div>
+              <hr className="horizontal dark" />
+              <button className="btn btn-dark btn-md ms-auto" onClick={handleEditProfile}>
+                  Edit profile
+                </button>
+            </div>
+          </div>
+        </div>
       </section>
     );
   } else {
@@ -183,24 +234,25 @@ const ProfileManagement = () => {
       <section
         className="vh-100"
         style={{
+          // overflow: 'auto',
           backgroundImage: `url(${image})`,
           backgroundSize: "contain",
           backgroundPosition: "center",
         }}
       >
-        <div className="container py-5 h-50">
-          <div className="row d-flex justify-content-center align-items-center h-100">
+        <div className="container py-1 h-50">
+          <div className="row d-flex justify-content-center align-items-center vh-100">
             <div className="col-12 col-md-8 col-lg-6 col-xl-5">
               <div
                 className="card bg-dark text-white"
                 style={{ width: "30rem" }}
               >
                 <div
-                  className="card-body p-3 text-center"
+                  className="card-body text-center"
                   style={{ "border-radius": "1rem;" }}
                 >
                   <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="mb-md-5 mt-md-4 pb-5">
+                    <div className="mt-3">
                       <h2 className="fw-bold mb-2 text-uppercase">Profile</h2>
                       <p className="text-white-50 mb-5">
                         Please enter your profile information!
@@ -414,10 +466,21 @@ const ProfileManagement = () => {
             </div>
           </div>
           {showPopup && (
-          <div style={{ position: "fixed", top: "20%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", padding: "20px", borderRadius: "10px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
-            Your Information Has Been Saved
-          </div>
-        )}
+            <div
+              style={{
+                position: "fixed",
+                top: "20%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                backgroundColor: "white",
+                padding: "20px",
+                borderRadius: "10px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              Your Information Has Been Saved
+            </div>
+          )}
         </div>
       </section>
     );
