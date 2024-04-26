@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/AnNguyen-112/FuelPilotApplication/issues"
   },
-  "homepage": "https://github.com/AnNguyen-112/FuelPilotApplication#readme"
+  "homepage": "https://github.com/AnNguyen-112/FuelPilotApplication#readme",
+  "dependencies": {
+    "mongoose": "^8.3.2"
+  }
 }
